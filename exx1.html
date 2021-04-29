@@ -1,0 +1,214 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <div>
+            <span>Mês:</span>
+            <input id="mes" type="text" placeholder="Informe o mês:" />
+        </div><br>
+
+        <div>
+            <span>Ano:</span>
+            <input id="Ano" type="text" placeholder="Informe o ano:"/>            
+        </div><br>
+
+        <div>
+            <span>Total Vendas:</span>
+            <input id="totalVendas" type="number" placeholder="Informe o número total de vendas:" />
+        </div><br>
+        
+        <div>
+            <span>Total Dispesas:</span>
+            <input id="totalDispesas" type="number" placeholder="Informe o número total de dispesas:" />
+        </div><br>
+
+        <div>
+   
+        <div>
+            <button onclick="cadastroFila()">Cadastrar</button>
+        </div>
+        <div>
+            <button onclick="iOrderInsA()"> Ordenar resultado ASC</button>
+            <button onclick="iordenacaoIntDesc()">Ordenar resultado DESC</button>
+            <button onclick="iorderString()">Ordenar mês ASC</button>
+        </div>
+    </div>
+    <script>
+        var cadrastro = [];
+
+        function ordenacaoIntDesc(pessoaA, pessoaB){
+            if(pessoaA.total_dispesas_vendas < pessoaB.total_dispesas_vendas)
+                return 1;
+            if(pessoaA.total_dispesas_vendas > pessoaB.total_dispesas_vendas)
+                return -1;           
+            return 0;
+            }
+
+            
+        function ordenacaoInsAsc(pessoaA, pessoaB){
+            if(pessoaA.total_dispesas_vendas > pessoaB.total_dispesas_vendas)
+                return 1;
+            if(pessoaA.total_dispesas_vendas < pessoaB.total_dispesas_vendas)
+                return -1;           
+            return 0;
+
+        }
+
+        function orderString(pessoaA, pessoaB){
+            if(pessoaA.Mes > pessoaB.Mes)
+                return 1;
+            if(pessoaA.Mes < pessoaB.Mes)
+                return -1;           
+            return 0;
+
+        }
+
+        function iOrderInsA(pessoaA, pessoaB){
+            gerarTabela(cadrastro.sort(ordenacaoInsAsc))
+
+        }
+
+        function iordenacaoIntDesc(pessoaA, pessoaB){
+            gerarTabela(cadrastro.sort(ordenacaoIntDesc))
+
+        }
+
+        function iorderString(pessoaA, pessoaB){
+            gerarTabela(cadrastro.sort(orderString))
+
+        }
+
+        function cadastroFila(){
+            let Mes = document.getElementById('mes').value;
+            let ano = document.getElementById('Ano').value;
+            let totalVendas = document.getElementById('totalVendas').value;
+            let totalDispesas = document.getElementById('totalDispesas').value;
+            var total_dispesas_vendas = totalVendas - totalDispesas;
+            var status;
+            let novoCadastroLoja ={ Mes , ano , totalVendas , totalDispesas, total_dispesas_vendas, status};
+
+            if(total_dispesas_vendas > 0){
+                status = "POSITIVO"
+            console.log(status)
+            novoCadastroLoja ={ Mes , ano , totalVendas , totalDispesas, total_dispesas_vendas, status};
+            cadrastro.push(novoCadastroLoja);
+            }
+            else if(total_dispesas_vendas === 0){
+                status = "NEUTRO"
+                console.log(status)
+                novoCadastroLoja ={ Mes , ano , totalVendas , totalDispesas, total_dispesas_vendas, status};
+                cadrastro.push(novoCadastroLoja);
+            }                    
+             else if(total_dispesas_vendas < 0){
+            status = "NEGATIVO"
+            console.log(status)
+            novoCadastroLoja ={ Mes , ano , totalVendas , totalDispesas, total_dispesas_vendas, status};
+            cadrastro.push(novoCadastroLoja);
+         }
+         console.log(cadrastro)
+
+                gerarTabela(cadrastro)
+        }
+
+    function gerarTabela(tabela){
+            var body = document.getElementsByTagName("body")[0];
+            var tabelaAuxiliar = document.getElementById("tbTarefas");
+            if(tabelaAuxiliar != null){
+                tabelaAuxiliar.remove();
+            }
+
+            var prioridadesTabela = document.createElement("table"); 
+            prioridadesTabela.id = "tbTarefas";
+            var corpoTabela = document.createElement("tbody");
+            var tabelaHead = document.createElement("thead");
+            
+            var linhaCabecalho = document.createElement("tr");
+            
+            var colunaCabecalhoMes = document.createElement("td");
+            var conteudoCabecalhoMes = document.createTextNode('Mes');
+            colunaCabecalhoMes.appendChild(conteudoCabecalhoMes);
+            linhaCabecalho.appendChild(colunaCabecalhoMes);
+
+
+            var colunaCabecalhoAnoHTML = document.createElement("td");
+            var conteudoCabecalhoAno = document.createTextNode('ano');
+            colunaCabecalhoAnoHTML.appendChild(conteudoCabecalhoAno);
+            linhaCabecalho.appendChild(colunaCabecalhoAnoHTML);
+
+            var colunaCabecalhototalVendas = document.createElement("td");
+            var conteudoCabecalhototalVendas = document.createTextNode('total Vendas');
+            colunaCabecalhototalVendas.appendChild(conteudoCabecalhototalVendas);
+            linhaCabecalho.appendChild(colunaCabecalhototalVendas);
+
+            var colunaCabecalhoTotalDispesas = document.createElement("td");
+            var conteudoCabecalhoTotalDispesas = document.createTextNode('Total Dispesas');
+            colunaCabecalhoTotalDispesas.appendChild(conteudoCabecalhoTotalDispesas);
+            linhaCabecalho.appendChild(colunaCabecalhoTotalDispesas);
+
+            var colunCabeçalhoMes = document.createElement("td");
+            var conteudoCabecalhoResultados = document.createTextNode('Resultados');
+            colunCabeçalhoMes.appendChild(conteudoCabecalhoResultados);
+            linhaCabecalho.appendChild(colunCabeçalhoMes);
+
+            var colunaCabecalhostatus = document.createElement("td");
+            var conteudoCabecalhostatus = document.createTextNode('status');
+            colunaCabecalhostatus.appendChild(conteudoCabecalhostatus);
+            linhaCabecalho.appendChild(colunaCabecalhostatus);
+
+            tabelaHead.appendChild(linhaCabecalho);  
+            
+            
+            for(let contador = 0; contador < tabela.length; contador++){
+                var linha = document.createElement("tr");
+
+                var colunaMes = document.createElement("td");
+                var conteudoMes = document.createTextNode(tabela[contador].Mes);
+                colunaMes.appendChild(conteudoMes);
+                linha.appendChild(colunaMes);   
+                
+                var colunaAnoHTML = document.createElement("td");
+                var conteudoAno = document.createTextNode(tabela[contador].ano);
+                colunaAnoHTML.appendChild(conteudoAno);
+                linha.appendChild(colunaAnoHTML);  
+
+                var colunatotalVendasHTML = document.createElement("td");
+                var conteudototalVendas = document.createTextNode(tabela[contador].totalVendas);
+                colunatotalVendasHTML.appendChild(conteudototalVendas);
+                linha.appendChild(colunatotalVendasHTML);   
+                
+                var colunaTotalDispesas = document.createElement("td");
+                var conteudoTotalDispesas = document.createTextNode(tabela[contador].totalDispesas);
+                colunaTotalDispesas.appendChild(conteudoTotalDispesas);
+                linha.appendChild(colunaTotalDispesas);   
+
+                var colunaResultadosHTML = document.createElement("td");
+                var conteudoResultados = document.createTextNode(tabela[contador].total_dispesas_vendas);
+                colunaResultadosHTML.appendChild(conteudoResultados);
+                linha.appendChild(colunaResultadosHTML);  
+                
+                var colunaStatusL = document.createElement("td");
+                var status = document.createTextNode(tabela[contador].status);
+                colunaStatusL.appendChild(status);
+                linha.appendChild(colunaStatusL); 
+              
+                corpoTabela.appendChild(linha);   
+
+            }
+            prioridadesTabela.appendChild(CabecalhoTabela);            
+            prioridadesTabela.appendChild(corpoTabela);
+            body.appendChild(prioridadesTabela);
+            prioridadesTabela.setAttribute("border","1");
+           
+            
+        }    
+
+
+    </script>
+</body>
+</html>
