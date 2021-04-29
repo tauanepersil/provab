@@ -1,0 +1,134 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<body>
+
+    <div>
+
+        <div>
+            <span>Nome do piloto:</span>
+            <input id="nome" type="text" />
+        </div>
+        
+    <div>
+
+     <div>
+        <div>
+             <span>Nome da equipe:</span>
+             <input id="equipe" type="text" />
+        </div>
+    <div>
+    
+    <div>
+            <div>
+                <span>tempo de volta:</span>
+                <input id="tempo" type="number" />
+            </div>
+    <div>
+            
+        <button onclick="cadastrar()">cadastrar</button>
+        <button onclick="ordenar()">ordenar crescente</button>
+
+    <script>
+      
+        var lista =[]
+        function cadastrar(){
+    
+            let nome=document.getElementById('nome').value
+            let equipe=document.getElementById('equipe').value
+            let tempo=document.getElementById('tempo').value
+
+            let novaLista= {nome,equipe,tempo}
+            lista.push(novaLista);
+            console.log(lista);
+
+           
+        }
+ 
+        function ordenacao(eventA,eventB){
+            if (eventA.tempo > eventB.tempo)             
+            return 1;
+
+            
+            if (eventA.tempo < eventB.tempo)
+            return -1;
+           
+            return 0;
+        }
+ 
+        function imprimirTabela(tabela){
+            var body = document.getElementsByTagName("body")[0];
+            var tabelaAuxiliar = document.getElementById("tbTarefas");
+            if(tabelaAuxiliar != null){
+                tabelaAuxiliar.remove();
+            }
+
+            var tabelaPrioridadeHTML = document.createElement("table"); 
+            tabelaPrioridadeHTML.id = "tbTarefas";
+            var tabelaBody = document.createElement("tbody");
+            var tabelaHead = document.createElement("thead");
+
+            var linhaCabecalhoHTML = document.createElement("tr");
+
+            var colunaCabecalhoNomeHTML = document.createElement("td");
+            var conteudoCabecalhoNome = document.createTextNode('nome');
+            colunaCabecalhoNomeHTML.appendChild(conteudoCabecalhoNome);
+            linhaCabecalhoHTML.appendChild(colunaCabecalhoNomeHTML);
+
+
+            var colunaCabecalhoPrioHTML = document.createElement("td");
+            var conteudoCabecalhoPrio = document.createTextNode('equipe');
+            colunaCabecalhoPrioHTML.appendChild(conteudoCabecalhoPrio);
+            linhaCabecalhoHTML.appendChild(colunaCabecalhoPrioHTML);
+
+            var colunaCabecalhoDataHTML = document.createElement("td");
+            var conteudoCabecalhoData = document.createTextNode('tempo');
+            colunaCabecalhoDataHTML.appendChild(conteudoCabecalhoData);
+            linhaCabecalhoHTML.appendChild(colunaCabecalhoDataHTML);
+
+            tabelaHead.appendChild(linhaCabecalhoHTML);  
+
+            
+            for(let nrolinha = 0; nrolinha < tabela.length; nrolinha++){
+                var linhaHTML = document.createElement("tr");
+
+                var colunaNomeHTML = document.createElement("td");
+                var conteudoNome = document.createTextNode(tabela[nrolinha].nome);
+                colunaNomeHTML.appendChild(conteudoNome);
+                linhaHTML.appendChild(colunaNomeHTML);   
+
+
+                var colunaPrioridadeHTML = document.createElement("td");
+                var conteudoPrioridade = document.createTextNode(tabela[nrolinha].equipe);
+                colunaPrioridadeHTML.appendChild(conteudoPrioridade);
+                linhaHTML.appendChild(colunaPrioridadeHTML);   
+
+                var colunaDataHTML = document.createElement("td");
+                var conteudoData = document.createTextNode(tabela[nrolinha].tempo);
+                colunaDataHTML.appendChild(conteudoData);
+                linhaHTML.appendChild(colunaDataHTML);   
+
+                tabelaBody.appendChild(linhaHTML);   
+
+            }
+            tabelaPrioridadeHTML.appendChild(tabelaHead);            
+            tabelaPrioridadeHTML.appendChild(tabelaBody);
+            body.appendChild(tabelaPrioridadeHTML);
+            tabelaPrioridadeHTML.setAttribute("border","1");
+        }
+
+            function ordenar(){
+                {
+                    console.log(lista.sort(ordenacao));
+                    imprimirTabela(lista.sort(ordenacao));
+
+                }
+            }
+    </script>
+    
+</body>
+</html>
