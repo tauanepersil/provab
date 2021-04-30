@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Exercício 3</h1>
+    <h3>Informe as Idades e mostre a maior de cada array e a quantidade:</h3>
+    <input id="idades"  type="number"  name="idade" />
+    <button onclick="cadastrar()">Adicionar Array</button>
+    <button onclick="maior()">maiores idades</button>
+   
+    <script>
+		var arrayMaiorIdade = [];
+        var arrayMenorIdade = [];
+
+
+        function cadastrar(){
+        let idade = document.getElementById("idades").value;
+        if(idade >= 18){
+            arrayMaiorIdade.push(idade);
+
+        }
+        else{
+            arrayMenorIdade.push(idade);
+
+        }
+
+        console.log("maior",arrayMaiorIdade)
+        console.log("menor",arrayMenorIdade)
+
+						
+		}
+         
+		function maior(arrayIdades){
+			menoresIdades = 0;
+            maioresIdades = 0;
+            for (let i = 0; i < arrayMaiorIdade.length; i++) {
+                if(maioresIdades < arrayMaiorIdade[i]){
+                    maioresIdades = arrayMaiorIdade[i]
+                    console.log(maioresIdades.length)
+                }
+            }
+
+        }
